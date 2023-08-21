@@ -1,4 +1,4 @@
-using WebApi.Logging;
+using WebApi;
 using WebApi.Logging.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);

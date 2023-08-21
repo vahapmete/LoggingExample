@@ -1,37 +1,41 @@
-﻿namespace WebApi.Logging
+﻿using Google.Cloud.Firestore;
+
+namespace WebApi.Logging
 {
+    [FirestoreData]
     public class RequestResponseLogModel
     {
+        [FirestoreProperty]
         public string LogId { get; set; }           /*Guid.NewGuid().ToString()*/
-        public string Node { get; set; }            /*project name*/
-        public string ClientIp { get; set; }
+        [FirestoreProperty] public string Node { get; set; }            /*project name*/
+        [FirestoreProperty] public string ClientIp { get; set; }
         public string TraceId { get; set; }         /*HttpContext TraceIdentifier*/
 
 
-        public DateTime? RequestDateTimeUtc { get; set; }
-        public DateTime? RequestDateTimeUtcActionLevel { get; set; }
-        public string RequestPath { get; set; }
-        public string RequestQuery { get; set; }
-        public List<KeyValuePair<string, string>> RequestQueries { get; set; }
-        public string RequestMethod { get; set; }
-        public string RequestScheme { get; set; }
-        public string RequestHost { get; set; }
-        public Dictionary<string, string> RequestHeaders { get; set; }
-        public string RequestBody { get; set; }
-        public string RequestContentType { get; set; }
+        [FirestoreProperty] public DateTime? RequestDateTimeUtc { get; set; }
+        [FirestoreProperty] public DateTime? RequestDateTimeUtcActionLevel { get; set; }
+        [FirestoreProperty] public string RequestPath { get; set; }
+        [FirestoreProperty] public string RequestQuery { get; set; }
+        [FirestoreProperty] public List<KeyValuePair<string, string>> RequestQueries { get; set; }
+        [FirestoreProperty] public string RequestMethod { get; set; }
+        [FirestoreProperty] public string RequestScheme { get; set; }
+        [FirestoreProperty] public string RequestHost { get; set; }
+        [FirestoreProperty] public Dictionary<string, string> RequestHeaders { get; set; }
+        [FirestoreProperty] public string RequestBody { get; set; }
+        [FirestoreProperty] public string RequestContentType { get; set; }
 
 
-        public DateTime? ResponseDateTimeUtc { get; set; }
-        public DateTime? ResponseDateTimeUtcActionLevel { get; set; }
-        public string ResponseStatus { get; set; }
-        public Dictionary<string, string> ResponseHeaders { get; set; }
-        public string ResponseBody { get; set; }
-        public string ResponseContentType { get; set; }
+        [FirestoreProperty] public DateTime? ResponseDateTimeUtc { get; set; }
+        [FirestoreProperty] public DateTime? ResponseDateTimeUtcActionLevel { get; set; }
+        [FirestoreProperty] public string ResponseStatus { get; set; }
+        [FirestoreProperty] public Dictionary<string, string> ResponseHeaders { get; set; }
+        [FirestoreProperty] public string ResponseBody { get; set; }
+        [FirestoreProperty] public string ResponseContentType { get; set; }
 
 
-        public bool? IsExceptionActionLevel { get; set; }
-        public string ExceptionMessage { get; set; }
-        public string ExceptionStackTrace { get; set; }
+        [FirestoreProperty] public bool? IsExceptionActionLevel { get; set; }
+        [FirestoreProperty] public string ExceptionMessage { get; set; }
+        [FirestoreProperty] public string ExceptionStackTrace { get; set; }
 
         public RequestResponseLogModel()
         {

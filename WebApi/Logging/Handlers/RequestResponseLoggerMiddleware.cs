@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Options;
+using WebApi.Firebase;
 
 namespace WebApi.Logging.Handlers;
 
@@ -8,14 +9,16 @@ public class RequestResponseLoggerMiddleware
     private readonly RequestDelegate _next;
     private readonly RequestResponseLoggerOption _options;
     private readonly IRequestResponseLogger _logger;
+    private readonly IFirestoreProvider _firestoreProvider;
 
     public RequestResponseLoggerMiddleware
     (RequestDelegate next, IOptions<RequestResponseLoggerOption> options,
-        IRequestResponseLogger logger)
+        IRequestResponseLogger logger, IFirestoreProvider firestoreProvider)
     {
         _next = next;
         _options = options.Value;
         _logger = logger;
+        _firestoreProvider = firestoreProvider;
     }
 
     public async Task InvokeAsync(HttpContext httpContext,
@@ -96,7 +99,9 @@ public class RequestResponseLoggerMiddleware
         }
 
         //var jsonString = logCreator.LogString(); /*log json*/
+        await _firestoreProvider.db().Collection("Logs").Document(log.LogId).CreateAsync(log);
         _logger.Log(logCreator);
+       
     }
 
     private void LogError(RequestResponseLogModel log, Exception exception)

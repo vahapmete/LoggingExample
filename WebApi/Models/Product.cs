@@ -1,14 +1,20 @@
-﻿namespace WebApi.Models
+﻿using Google.Cloud.Firestore;
+
+namespace WebApi.Models
 {
+
+    [FirestoreData]
     public class Product
     {
-        public Guid Id { get; set; }
+        [FirestoreProperty]
+        public string Id { get; set; }
+
+        [FirestoreProperty]
         public string Name { get; set; }
 
-        public Product(Guid id, string name)
+        public Product()
         {
-            Id = id;
-            Name = name;
+            Id=Guid.NewGuid().ToString();
         }
     }
 
