@@ -1,9 +1,10 @@
-﻿using Google.Cloud.Firestore;
+﻿
+using Google.Cloud.Firestore;
 
-namespace WebApi.Logging
+namespace WebApi.CrossCuttingConcerns.Logging
 {
     [FirestoreData]
-    public class RequestResponseLogModel
+    public class LogModel
     {
         [FirestoreProperty]
         public string LogId { get; set; }           /*Guid.NewGuid().ToString()*/
@@ -37,7 +38,7 @@ namespace WebApi.Logging
         [FirestoreProperty] public string ExceptionMessage { get; set; }
         [FirestoreProperty] public string ExceptionStackTrace { get; set; }
 
-        public RequestResponseLogModel()
+        public LogModel()
         {
             LogId = Guid.NewGuid().ToString();
         }

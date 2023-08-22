@@ -1,5 +1,5 @@
 using WebApi;
-using WebApi.Logging.Handlers;
+using WebApi.CrossCuttingConcerns.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddWebApiServices(builder.Configuration);
 
 var app = builder.Build();
@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseMiddleware<RequestResponseLoggerMiddleware>();
+app.UseMiddleware<LoggerMiddleware>();
 
 app.UseHttpsRedirection();
 

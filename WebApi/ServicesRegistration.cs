@@ -1,8 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿using WebApi.CrossCuttingConcerns.Logging;
+using WebApi.CrossCuttingConcerns.Logging.Abstracts;
+using WebApi.CrossCuttingConcerns.Logging.Concretes;
 using WebApi.Firebase;
 using WebApi.Logging;
-using WebApi.Logging.Handlers;
 using WebApi.ProductManager;
+using ILogger = WebApi.CrossCuttingConcerns.Logging.Abstracts.ILogger;
 
 namespace WebApi
 {
@@ -10,13 +12,14 @@ namespace WebApi
     {
         public static IServiceCollection AddWebApiServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOptions<RequestResponseLoggerOption>().Bind
+            services.AddOptions<LoggerOptions>().Bind
                 (configuration.GetSection("RequestResponseLogger")).ValidateDataAnnotations();
             /*IOC*/
-            services.AddSingleton<IRequestResponseLogger, RequestResponseLogger>();
-            services.AddScoped<IRequestResponseLogModelCreator, RequestResponseLogModelCreator>();
+            services.AddSingleton<ILogger, Logger>();
+            services.AddSingleton<ILogModelCreator, LogModelCreator>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IFirestoreProvider, FirestoreProvider>();
+
 
             return services;
         }

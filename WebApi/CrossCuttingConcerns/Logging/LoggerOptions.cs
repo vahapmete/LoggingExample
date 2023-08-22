@@ -1,6 +1,6 @@
-﻿namespace WebApi.Logging;
+﻿namespace WebApi.CrossCuttingConcerns.Logging;
 
-public class RequestResponseLoggerOption
+public class LoggerOptions
 {
     public bool IsEnabled { get; set; }
     public string Name { get; set; }

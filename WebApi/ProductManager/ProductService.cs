@@ -21,5 +21,11 @@ namespace WebApi.ProductManager
             Product productResponse = snapshot.ConvertTo<Product>();
             return productResponse;
         }
+
+        public async Task<List<Product>> GetProducts()
+        {
+            QuerySnapshot querySnapshot = await _firestoreProvider.db().Collection("Products").GetSnapshotAsync();
+            return querySnapshot.Documents.Select(x=>x.ConvertTo<Product>()).ToList();
+        }
     }
 }

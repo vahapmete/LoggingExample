@@ -24,5 +24,12 @@ namespace WebApi.Controllers
             Product productResponse=  await _productService.AddProduct(product);
             return Ok(productResponse);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+           
+            List<Product> productResponse=  await _productService.GetProducts();
+            return Ok(productResponse);
+        }
     }
 }
